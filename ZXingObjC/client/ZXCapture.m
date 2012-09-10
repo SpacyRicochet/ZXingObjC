@@ -101,7 +101,7 @@
                                            -imgRect.size.height/2,
                                            imgRect.size.width,
                                            imgRect.size.height),
-                       original);
+                                           original);
 
     CGImageRef rotatedImage = CGBitmapContextCreateImage(context);
 
