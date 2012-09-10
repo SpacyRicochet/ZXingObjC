@@ -85,7 +85,7 @@ const int MAX_PAIRS = 11;
   int currentSequence[LONGEST_SEQUENCE_SIZE];
 }
 
-@property (nonatomic, retain) NSMutableArray *pairs;
+@property (nonatomic, strong) NSMutableArray *pairs;
 
 - (BOOL)adjustOddEvenCounts:(int)numModules;
 - (ZXResult *)constructResult:(NSMutableArray *)pairs error:(NSError**)error;
@@ -112,11 +112,6 @@ const int MAX_PAIRS = 11;
   return self;
 }
 
-- (void)dealloc {
-  [pairs release];
-
-  [super dealloc];
-}
 
 - (ZXResult *)decodeRow:(int)rowNumber row:(ZXBitArray *)row hints:(ZXDecodeHints *)hints error:(NSError **)error {
   [self reset];
@@ -236,7 +231,7 @@ const int MAX_PAIRS = 11;
   if (!rightChar && !mayBeLast) {
     return nil;
   }
-  return [[[ZXExpandedPair alloc] initWithLeftChar:leftChar rightChar:rightChar finderPattern:pattern mayBeLast:mayBeLast] autorelease];
+  return [[ZXExpandedPair alloc] initWithLeftChar:leftChar rightChar:rightChar finderPattern:pattern mayBeLast:mayBeLast];
 }
 
 - (BOOL)checkPairSequence:(NSMutableArray *)previousPairs pattern:(ZXRSSFinderPattern *)pattern error:(NSError**)error {
@@ -392,7 +387,7 @@ const int MAX_PAIRS = 11;
   if (value == -1) {
     return nil;
   }
-  return [[[ZXRSSFinderPattern alloc] initWithValue:value startEnd:[NSArray arrayWithObjects:[NSNumber numberWithInt:start], [NSNumber numberWithInt:end], nil] start:start end:end rowNumber:rowNumber] autorelease];
+  return [[ZXRSSFinderPattern alloc] initWithValue:value startEnd:[NSArray arrayWithObjects:[NSNumber numberWithInt:start], [NSNumber numberWithInt:end], nil] start:start end:end rowNumber:rowNumber];
 }
 
 - (ZXDataCharacter *)decodeDataCharacter:(ZXBitArray *)row pattern:(ZXRSSFinderPattern *)pattern isOddPattern:(BOOL)isOddPattern leftChar:(BOOL)leftChar {
@@ -482,7 +477,7 @@ const int MAX_PAIRS = 11;
   int tEven = EVEN_TOTAL_SUBSET[group];
   int gSum = GSUM[group];
   int value = vOdd * tEven + vEven + gSum;
-  return [[[ZXDataCharacter alloc] initWithValue:value checksumPortion:checksumPortion] autorelease];
+  return [[ZXDataCharacter alloc] initWithValue:value checksumPortion:checksumPortion];
 }
 
 - (BOOL)isNotA1left:(ZXRSSFinderPattern *)pattern isOddPattern:(BOOL)isOddPattern leftChar:(BOOL)leftChar {

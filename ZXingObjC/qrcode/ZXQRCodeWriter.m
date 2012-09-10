@@ -57,7 +57,7 @@ int const QUIET_ZONE_SIZE = 4;
     }
   }
 
-  ZXQRCode * code = [[[ZXQRCode alloc] init] autorelease];
+  ZXQRCode * code = [[ZXQRCode alloc] init];
   [ZXEncoder encode:contents ecLevel:errorCorrectionLevel hints:hints qrCode:code error:error];
   return [self renderResult:code width:width height:height];
 }
@@ -82,7 +82,7 @@ int const QUIET_ZONE_SIZE = 4;
   int leftPadding = (outputWidth - (inputWidth * multiple)) / 2;
   int topPadding = (outputHeight - (inputHeight * multiple)) / 2;
 
-  ZXBitMatrix * output = [[[ZXBitMatrix alloc] initWithWidth:outputWidth height:outputHeight] autorelease];
+  ZXBitMatrix * output = [[ZXBitMatrix alloc] initWithWidth:outputWidth height:outputHeight];
 
   for (int inputY = 0, outputY = topPadding; inputY < inputHeight; inputY++, outputY += multiple) {
     for (int inputX = 0, outputX = leftPadding; inputX < inputWidth; inputX++, outputX += multiple) {

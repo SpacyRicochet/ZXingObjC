@@ -21,11 +21,11 @@ int const INITIALIZATION_THRESHOLD = 0;
 
 @interface ZXGenericGF ()
 
-@property (nonatomic, retain) ZXGenericGFPoly * zero;
-@property (nonatomic, retain) ZXGenericGFPoly * one;
+@property (nonatomic, strong) ZXGenericGFPoly * zero;
+@property (nonatomic, strong) ZXGenericGFPoly * one;
 @property (nonatomic, assign) int size;
-@property (nonatomic, retain) NSMutableArray * expTable;
-@property (nonatomic, retain) NSMutableArray * logTable;
+@property (nonatomic, strong) NSMutableArray * expTable;
+@property (nonatomic, strong) NSMutableArray * logTable;
 @property (nonatomic, assign) int primitive;
 @property (nonatomic, assign) BOOL initialized;
 
@@ -61,14 +61,6 @@ int const INITIALIZATION_THRESHOLD = 0;
   return self;
 }
 
-- (void)dealloc {
-  [expTable release];
-  [logTable release];
-  [zero release];
-  [one release];
-  
-  [super dealloc];
-}
 
 - (void)initialize {
   self.expTable = [NSMutableArray arrayWithCapacity:size];
@@ -91,10 +83,10 @@ int const INITIALIZATION_THRESHOLD = 0;
     [self.logTable replaceObjectAtIndex:[[self.expTable objectAtIndex:i] intValue] withObject:[NSNumber numberWithInt:i]];
   }
 
-  self.zero = [[[ZXGenericGFPoly alloc] initWithField:self coefficients:NULL coefficientsLen:0] autorelease];
+  self.zero = [[ZXGenericGFPoly alloc] initWithField:self coefficients:NULL coefficientsLen:0];
 
   int oneInt = 1;
-  self.one = [[[ZXGenericGFPoly alloc] initWithField:self coefficients:&oneInt coefficientsLen:1] autorelease];
+  self.one = [[ZXGenericGFPoly alloc] initWithField:self coefficients:&oneInt coefficientsLen:1];
   self.initialized = YES;
 }
 
@@ -188,7 +180,7 @@ int const INITIALIZATION_THRESHOLD = 0;
   for (int i = 1; i < coefficientsLen; i++) {
     coefficients[i] = 0;
   }
-  return [[[ZXGenericGFPoly alloc] initWithField:self coefficients:coefficients coefficientsLen:coefficientsLen] autorelease];
+  return [[ZXGenericGFPoly alloc] initWithField:self coefficients:coefficients coefficientsLen:coefficientsLen];
 }
 
 

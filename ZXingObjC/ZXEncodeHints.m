@@ -22,13 +22,8 @@
 @synthesize errorCorrectionLevel;
 
 + (id)hints {
-  return [[[self alloc] init] autorelease];
+  return [[self alloc] init];
 }
 
-- (void)dealloc {
-  [errorCorrectionLevel release];
-
-  [super dealloc];
-}
 
 @end

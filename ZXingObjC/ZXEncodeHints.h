@@ -32,6 +32,6 @@
 /**
  * Specifies what degree of error correction to use, for example in QR Codes (type Integer).
  */
-@property (nonatomic, retain) ZXErrorCorrectionLevel *errorCorrectionLevel;
+@property (nonatomic, strong) ZXErrorCorrectionLevel *errorCorrectionLevel;
 
 @end

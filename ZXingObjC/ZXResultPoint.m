@@ -40,7 +40,7 @@
 }
 
 + (id)resultPointWithX:(float)x y:(float)y {
-  return [[[self alloc] initWithX:x y:y] autorelease];
+  return [[self alloc] initWithX:x y:y];
 }
 
 - (id)copyWithZone:(NSZone *)zone {

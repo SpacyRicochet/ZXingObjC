@@ -77,7 +77,7 @@ static NSString* DIGIT_TABLE[] = {
 @interface ZXAztecDecoder ()
 
 @property (nonatomic, assign) int codewordSize;
-@property (nonatomic, retain) ZXAztecDetectorResult * ddata;
+@property (nonatomic, strong) ZXAztecDetectorResult * ddata;
 @property (nonatomic, assign) int invertedBitCount;
 @property (nonatomic, assign) int numCodewords;
 
@@ -290,7 +290,7 @@ static NSString* DIGIT_TABLE[] = {
     }
   }
 
-  ZXReedSolomonDecoder * rsDecoder = [[[ZXReedSolomonDecoder alloc] initWithField:gf] autorelease];
+  ZXReedSolomonDecoder * rsDecoder = [[ZXReedSolomonDecoder alloc] initWithField:gf];
   NSError* decodeError = nil;
   if (![rsDecoder decode:dataWords receivedLen:dataWordsLen twoS:numECCodewords error:&decodeError]) {
     if (decodeError.code == ZXReedSolomonError) {
@@ -457,10 +457,5 @@ static NSString* DIGIT_TABLE[] = {
   return res;
 }
 
-- (void) dealloc {
-  [ddata release];
-
-  [super dealloc];
-}
 
 @end

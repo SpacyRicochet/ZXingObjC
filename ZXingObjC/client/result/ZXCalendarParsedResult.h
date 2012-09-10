@@ -18,12 +18,12 @@
 
 @interface ZXCalendarParsedResult : ZXParsedResult
 
-@property (nonatomic, retain, readonly) NSString * summary;
-@property (nonatomic, retain, readonly) NSString * start;
-@property (nonatomic, retain, readonly) NSString * end;
-@property (nonatomic, retain, readonly) NSString * location;
-@property (nonatomic, retain, readonly) NSString * attendee;
-@property (nonatomic, retain, readonly) NSString * description;
+@property (nonatomic, strong, readonly) NSString * summary;
+@property (nonatomic, strong, readonly) NSString * start;
+@property (nonatomic, strong, readonly) NSString * end;
+@property (nonatomic, strong, readonly) NSString * location;
+@property (nonatomic, strong, readonly) NSString * attendee;
+@property (nonatomic, strong, readonly) NSString * description;
 @property (nonatomic, readonly) double latitude;
 @property (nonatomic, readonly) double longitude;
 

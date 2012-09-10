@@ -81,7 +81,6 @@
   if (cgimage) {
     CGImageRelease(cgimage);
   }
-  [super dealloc];
 }
 
 + (ZXImage*)imageWithMatrix:(ZXBitMatrix*)matrix {
@@ -102,11 +101,11 @@
   CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
   CGContextRef c = CGBitmapContextCreate(bytes, width, height, 8, 4 * width, colorSpace, kCGImageAlphaPremultipliedLast);
   CFRelease(colorSpace);
-  CGImageRef image = (__bridge CGImageRef)CFBridgingRelease(CGBitmapContextCreateImage(c));
+  CGImageRef image = CGBitmapContextCreateImage(c);
   CFRelease(c);
   free(bytes);
 
-  return [[[ZXImage alloc] initWithCGImageRef:image] autorelease];
+  return [[ZXImage alloc] initWithCGImageRef:image];
 }
 
 @end

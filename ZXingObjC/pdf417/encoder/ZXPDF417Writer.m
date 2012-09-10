@@ -60,7 +60,7 @@
     [NSException raise:NSInvalidArgumentException format:@"Can only encode PDF_417, but got %d", format];
   }
 
-  ZXPDF417* encoder = [[[ZXPDF417 alloc] init] autorelease];
+  ZXPDF417* encoder = [[ZXPDF417 alloc] init];
   encoder.compact = compact;
   return encoder;
 }
@@ -124,7 +124,7 @@
   int whiteSpace = 30;
 
   //Creates the bitmatrix with extra space for whtespace
-  ZXBitMatrix* output = [[[ZXBitMatrix alloc] initWithWidth:height + 2 * whiteSpace height:width + 2 * whiteSpace] autorelease];
+  ZXBitMatrix* output = [[ZXBitMatrix alloc] initWithWidth:height + 2 * whiteSpace height:width + 2 * whiteSpace];
   [output clear];
   for (int ii = 0; ii < height; ii++) {
     for (int jj = 0; jj < width; jj++) {

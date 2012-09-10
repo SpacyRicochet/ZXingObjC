@@ -42,16 +42,9 @@
 }
 
 + (id)wifiParsedResultWithNetworkEncryption:(NSString *)networkEncryption ssid:(NSString *)ssid password:(NSString *)password {
-  return [[[self alloc] initWithNetworkEncryption:networkEncryption ssid:ssid password:password] autorelease];
+  return [[self alloc] initWithNetworkEncryption:networkEncryption ssid:ssid password:password];
 }
 
-- (void)dealloc {
-  [ssid release];
-  [networkEncryption release];
-  [password release];
-  
-  [super dealloc];
-}
 
 - (NSString *)displayResult {
   NSMutableString *result = [NSMutableString stringWithCapacity:80];

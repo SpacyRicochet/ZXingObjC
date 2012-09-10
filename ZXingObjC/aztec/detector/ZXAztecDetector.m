@@ -54,7 +54,7 @@
 @interface ZXAztecDetector ()
 
 @property (nonatomic, assign) BOOL compact;
-@property (nonatomic, retain) ZXBitMatrix* image;
+@property (nonatomic, strong) ZXBitMatrix* image;
 @property (nonatomic, assign) int nbCenterLayers;
 @property (nonatomic, assign) int nbDataBlocks;
 @property (nonatomic, assign) int nbLayers;
@@ -138,11 +138,11 @@
     return nil;
   }
 
-  return [[[ZXAztecDetectorResult alloc] initWithBits:bits
+  return [[ZXAztecDetectorResult alloc] initWithBits:bits
                                                points:corners
                                               compact:self.compact
                                          nbDatablocks:self.nbDataBlocks
-                                             nbLayers:self.nbLayers] autorelease];
+                                             nbLayers:self.nbLayers];
 }
 
 
@@ -303,7 +303,7 @@
     }
   }
 
-  ZXReedSolomonDecoder *rsDecoder = [[[ZXReedSolomonDecoder alloc] initWithField:[ZXGenericGF AztecDataParam]] autorelease];
+  ZXReedSolomonDecoder *rsDecoder = [[ZXReedSolomonDecoder alloc] initWithField:[ZXGenericGF AztecDataParam]];
   NSError* decodeError = nil;
   if (![rsDecoder decode:parameterWords receivedLen:parameterWordsLen twoS:numECCodewords error:error]) {
     if (decodeError.code == ZXReedSolomonError) {
@@ -389,10 +389,10 @@
     return nil;
   }
 
-  ZXAztecPoint * pa = [[[ZXAztecPoint alloc] initWithX:targetax y:targetay] autorelease];
-  ZXAztecPoint * pb = [[[ZXAztecPoint alloc] initWithX:targetbx y:targetby] autorelease];
-  ZXAztecPoint * pc = [[[ZXAztecPoint alloc] initWithX:targetcx y:targetcy] autorelease];
-  ZXAztecPoint * pd = [[[ZXAztecPoint alloc] initWithX:targetdx y:targetdy] autorelease];
+  ZXAztecPoint * pa = [[ZXAztecPoint alloc] initWithX:targetax y:targetay];
+  ZXAztecPoint * pb = [[ZXAztecPoint alloc] initWithX:targetbx y:targetby];
+  ZXAztecPoint * pc = [[ZXAztecPoint alloc] initWithX:targetcx y:targetcy];
+  ZXAztecPoint * pd = [[ZXAztecPoint alloc] initWithX:targetdx y:targetdy];
 
   return [NSArray arrayWithObjects:pa, pb, pc, pd, nil];
 }
@@ -409,7 +409,7 @@
   ZXResultPoint *pointD;
 
   NSError* detectorError = nil;
-  ZXWhiteRectangleDetector* detector = [[[ZXWhiteRectangleDetector alloc] initWithImage:self.image error:&detectorError] autorelease];
+  ZXWhiteRectangleDetector* detector = [[ZXWhiteRectangleDetector alloc] initWithImage:self.image error:&detectorError];
   NSArray * cornerPoints = nil;
   if (detector) {
     cornerPoints = [detector detectWithError:&detectorError];
@@ -418,10 +418,10 @@
   if (detectorError && detectorError.code == ZXNotFoundError) {
     int cx = self.image.width / 2;
     int cy = self.image.height / 2;
-    pointA = [[self firstDifferent:[[[ZXAztecPoint alloc] initWithX:cx + 15 / 2 y:cy - 15 / 2] autorelease] color:NO dx:1 dy:-1] toResultPoint];
-    pointB = [[self firstDifferent:[[[ZXAztecPoint alloc] initWithX:cx + 15 / 2 y:cy + 15 / 2] autorelease] color:NO dx:1 dy:1] toResultPoint];
-    pointC = [[self firstDifferent:[[[ZXAztecPoint alloc] initWithX:cx - 15 / 2 y:cy + 15 / 2] autorelease] color:NO dx:-1 dy:1] toResultPoint];
-    pointD = [[self firstDifferent:[[[ZXAztecPoint alloc] initWithX:cx - 15 / 2 y:cy - 15 / 2] autorelease] color:NO dx:-1 dy:-1] toResultPoint];
+    pointA = [[self firstDifferent:[[ZXAztecPoint alloc] initWithX:cx + 15 / 2 y:cy - 15 / 2] color:NO dx:1 dy:-1] toResultPoint];
+    pointB = [[self firstDifferent:[[ZXAztecPoint alloc] initWithX:cx + 15 / 2 y:cy + 15 / 2] color:NO dx:1 dy:1] toResultPoint];
+    pointC = [[self firstDifferent:[[ZXAztecPoint alloc] initWithX:cx - 15 / 2 y:cy + 15 / 2] color:NO dx:-1 dy:1] toResultPoint];
+    pointD = [[self firstDifferent:[[ZXAztecPoint alloc] initWithX:cx - 15 / 2 y:cy - 15 / 2] color:NO dx:-1 dy:-1] toResultPoint];
   } else if (detectorError) {
     if (error) *error = detectorError;
     return nil;
@@ -436,16 +436,16 @@
   int cy = [self round:([pointA y] + [pointD y] + [pointB y] + [pointC y]) / 4];
 
   detectorError = nil;
-  detector = [[[ZXWhiteRectangleDetector alloc] initWithImage:self.image initSize:15 x:cx y:cy error:&detectorError] autorelease];
+  detector = [[ZXWhiteRectangleDetector alloc] initWithImage:self.image initSize:15 x:cx y:cy error:&detectorError];
   if (detector) {
     cornerPoints = [detector detectWithError:&detectorError];
   }
 
   if (detectorError && detectorError.code == ZXNotFoundError) {
-    pointA = [[self firstDifferent:[[[ZXAztecPoint alloc] initWithX:cx + 15 / 2 y:cy - 15 / 2] autorelease] color:NO dx:1 dy:-1] toResultPoint];
-    pointB = [[self firstDifferent:[[[ZXAztecPoint alloc] initWithX:cx + 15 / 2 y:cy + 15 / 2] autorelease] color:NO dx:1 dy:1] toResultPoint];
-    pointC = [[self firstDifferent:[[[ZXAztecPoint alloc] initWithX:cx - 15 / 2 y:cy + 15 / 2] autorelease] color:NO dx:-1 dy:1] toResultPoint];
-    pointD = [[self firstDifferent:[[[ZXAztecPoint alloc] initWithX:cx - 15 / 2 y:cy - 15 / 2] autorelease] color:NO dx:-1 dy:-1] toResultPoint];
+    pointA = [[self firstDifferent:[[ZXAztecPoint alloc] initWithX:cx + 15 / 2 y:cy - 15 / 2] color:NO dx:1 dy:-1] toResultPoint];
+    pointB = [[self firstDifferent:[[ZXAztecPoint alloc] initWithX:cx + 15 / 2 y:cy + 15 / 2] color:NO dx:1 dy:1] toResultPoint];
+    pointC = [[self firstDifferent:[[ZXAztecPoint alloc] initWithX:cx - 15 / 2 y:cy + 15 / 2] color:NO dx:-1 dy:1] toResultPoint];
+    pointD = [[self firstDifferent:[[ZXAztecPoint alloc] initWithX:cx - 15 / 2 y:cy - 15 / 2] color:NO dx:-1 dy:-1] toResultPoint];
   } else if (detectorError) {
     if (error) *error = detectorError;
     return nil;
@@ -459,7 +459,7 @@
   cx = [self round:([pointA x] + [pointD x] + [pointB x] + [pointC x]) / 4];
   cy = [self round:([pointA y] + [pointD y] + [pointB y] + [pointC y]) / 4];
 
-  return [[[ZXAztecPoint alloc] initWithX:cx y:cy] autorelease];
+  return [[ZXAztecPoint alloc] initWithX:cx y:cy];
 }
 
 
@@ -573,10 +573,10 @@
 - (BOOL)isWhiteOrBlackRectangle:(ZXAztecPoint *)p1 p2:(ZXAztecPoint *)p2 p3:(ZXAztecPoint *)p3 p4:(ZXAztecPoint *)p4 {
   int corr = 3;
 
-  p1 = [[[ZXAztecPoint alloc] initWithX:p1.x - corr y:p1.y + corr] autorelease];
-  p2 = [[[ZXAztecPoint alloc] initWithX:p2.x - corr y:p2.y - corr] autorelease];
-  p3 = [[[ZXAztecPoint alloc] initWithX:p3.x + corr y:p3.y - corr] autorelease];
-  p4 = [[[ZXAztecPoint alloc] initWithX:p4.x + corr y:p4.y + corr] autorelease];
+  p1 = [[ZXAztecPoint alloc] initWithX:p1.x - corr y:p1.y + corr];
+  p2 = [[ZXAztecPoint alloc] initWithX:p2.x - corr y:p2.y - corr];
+  p3 = [[ZXAztecPoint alloc] initWithX:p3.x + corr y:p3.y - corr];
+  p4 = [[ZXAztecPoint alloc] initWithX:p4.x + corr y:p4.y + corr];
 
   int cInit = [self color:p4 p2:p1];
 
@@ -664,7 +664,7 @@
   }
   y -= dy;
 
-  return [[[ZXAztecPoint alloc] initWithX:x y:y] autorelease];
+  return [[ZXAztecPoint alloc] initWithX:x y:y];
 }
 
 - (BOOL) isValidX:(int)x y:(int)y {

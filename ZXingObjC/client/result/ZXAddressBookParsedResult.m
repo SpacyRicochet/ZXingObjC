@@ -19,16 +19,16 @@
 
 @interface ZXAddressBookParsedResult ()
 
-@property (nonatomic, retain) NSArray * names;
+@property (nonatomic, strong) NSArray * names;
 @property (nonatomic, copy) NSString * pronunciation;
-@property (nonatomic, retain) NSArray * phoneNumbers;
-@property (nonatomic, retain) NSArray * phoneTypes;
-@property (nonatomic, retain) NSArray * emails;
-@property (nonatomic, retain) NSArray * emailTypes;
+@property (nonatomic, strong) NSArray * phoneNumbers;
+@property (nonatomic, strong) NSArray * phoneTypes;
+@property (nonatomic, strong) NSArray * emails;
+@property (nonatomic, strong) NSArray * emailTypes;
 @property (nonatomic, copy) NSString * instantMessenger;
 @property (nonatomic, copy) NSString * note;
-@property (nonatomic, retain) NSArray * addresses;
-@property (nonatomic, retain) NSArray * addressTypes;
+@property (nonatomic, strong) NSArray * addresses;
+@property (nonatomic, strong) NSArray * addressTypes;
 @property (nonatomic, copy) NSString * title;
 @property (nonatomic, copy) NSString * org;
 @property (nonatomic, copy) NSString * url;

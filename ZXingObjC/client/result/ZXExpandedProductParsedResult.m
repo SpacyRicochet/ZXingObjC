@@ -34,7 +34,7 @@ NSString * const POUND = @"LB";
 @property (nonatomic, copy) NSString * price;
 @property (nonatomic, copy) NSString * priceIncrement;
 @property (nonatomic, copy) NSString * priceCurrency;
-@property (nonatomic, retain) NSMutableDictionary * uncommonAIs;
+@property (nonatomic, strong) NSMutableDictionary * uncommonAIs;
 
 - (BOOL)equalsOrNil:(id)o1 o2:(id)o2;
 
@@ -93,30 +93,12 @@ NSString * const POUND = @"LB";
                                 expirationDate:(NSString *)expirationDate weight:(NSString *)weight weightType:(NSString *)weightType
                                weightIncrement:(NSString *)weightIncrement price:(NSString *)price priceIncrement:(NSString *)priceIncrement
                                  priceCurrency:(NSString *)priceCurrency uncommonAIs:(NSMutableDictionary *)uncommonAIs {
-  return [[[self alloc] initWithProductID:productID sscc:sscc lotNumber:lotNumber productionDate:productionDate
+  return [[self alloc] initWithProductID:productID sscc:sscc lotNumber:lotNumber productionDate:productionDate
                             packagingDate:packagingDate bestBeforeDate:bestBeforeDate expirationDate:expirationDate
                                    weight:weight weightType:weightType weightIncrement:weightIncrement price:price
-                           priceIncrement:priceIncrement priceCurrency:priceCurrency uncommonAIs:uncommonAIs] autorelease];
+                           priceIncrement:priceIncrement priceCurrency:priceCurrency uncommonAIs:uncommonAIs];
 }
 
-- (void)dealloc {
-  [productID release];
-  [sscc release];
-  [lotNumber release];
-  [productionDate release];
-  [packagingDate release];
-  [bestBeforeDate release];
-  [expirationDate release];
-  [weight release];
-  [weightType release];
-  [weightIncrement release];
-  [price release];
-  [priceIncrement release];
-  [priceCurrency release];
-  [uncommonAIs release];
-
-  [super dealloc];
-}
 
 - (BOOL)isEqual:(id)o {
   if (![o isKindOfClass:[self class]]) {

@@ -103,7 +103,7 @@
                                            imgRect.size.height),
                        original);
 
-    CGImageRef rotatedImage = (__bridge CGImageRef)CFBridgingRelease(CGBitmapContextCreateImage(context));
+    CGImageRef rotatedImage = CGBitmapContextCreateImage(context);
 
     CFRelease(context);
 
@@ -308,10 +308,8 @@
 
 - (void)setLuminance:(BOOL)on {
   if (on && !luminance) {
-    [luminance release];
-    luminance = [[CALayer layer] retain];
+    luminance = [CALayer layer];
   } else if (!on && luminance) {
-    [luminance release];
     luminance = nil;
   }
 }
@@ -322,10 +320,8 @@
 
 - (void)setBinary:(BOOL)on {
   if (on && !binary) {
-    [binary release];
-    binary = [[CALayer layer] retain];
+    binary = [CALayer layer];
   } else if (!on && binary) {
-    [binary release];
     binary = nil;
   }
 }
@@ -419,18 +415,6 @@
   return nil;
 }
 
-- (void)dealloc {
-  [captureToFilename release];
-  [binary release];
-  [luminance release];
-  [output release];
-  [input release];
-  [layer release];
-  [session release];
-  [reader release];
-  [hints release];
-  [super dealloc];
-}
 
 - (void)captureOutput:(ZXCaptureOutput*)captureOutput
 ZXQT(didOutputVideoFrame:(CVImageBufferRef)videoFrame
@@ -467,7 +451,7 @@ ZXAV(didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer)
 
   (void)sampleBuffer;
 
-  NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+  @autoreleasepool {
   
   (void)captureOutput;
   (void)connection;
@@ -496,9 +480,8 @@ ZXAV(didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer)
   CGImageRelease(videoFrameImage);
 
   ZXCGImageLuminanceSource* source
-    = [[[ZXCGImageLuminanceSource alloc]
-        initWithCGImage:rotatedImage]
-        autorelease];
+    = [[ZXCGImageLuminanceSource alloc]
+        initWithCGImage:rotatedImage];
 
   CGImageRelease(rotatedImage);
 
@@ -527,7 +510,7 @@ ZXAV(didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer)
     if (delegate) {
 
       ZXBinaryBitmap* bitmap = 
-        [[[ZXBinaryBitmap alloc] initWithBinarizer:binarizer] autorelease];
+        [[ZXBinaryBitmap alloc] initWithBinarizer:binarizer];
 
 //      NSLog(@"started decode");
       NSError* error;
@@ -542,7 +525,7 @@ ZXAV(didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer)
 //    NSLog(@"finished frame");
   }
 
-  [pool drain];
+  }
 }
 
 - (BOOL)hasFront {

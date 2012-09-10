@@ -19,8 +19,8 @@
 @interface ZXRSSFinderPattern ()
 
 @property (nonatomic, assign) int value;
-@property (nonatomic, retain) NSArray * startEnd;
-@property (nonatomic, retain) NSArray * resultPoints;
+@property (nonatomic, strong) NSArray * startEnd;
+@property (nonatomic, strong) NSArray * resultPoints;
 
 @end
 
@@ -35,19 +35,13 @@
     self.value = aValue;
     self.startEnd = aStartEnd;
     self.resultPoints = [NSArray arrayWithObjects:
-                         [[[ZXResultPoint alloc] initWithX:(float)aStart y:(float)aRowNumber] autorelease],
-                         [[[ZXResultPoint alloc] initWithX:(float)anEnd y:(float)aRowNumber] autorelease],
+                         [[ZXResultPoint alloc] initWithX:(float)aStart y:(float)aRowNumber],
+                         [[ZXResultPoint alloc] initWithX:(float)anEnd y:(float)aRowNumber],
                          nil];
   }
 
   return self;
 }
 
-- (void)dealloc {
-  [startEnd release];
-  [resultPoints release];
-
-  [super dealloc];
-}
 
 @end

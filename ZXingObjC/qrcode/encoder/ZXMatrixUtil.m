@@ -155,26 +155,26 @@ int const TYPE_INFO_MASK_PATTERN = 0x5412;
 
 + (BOOL)embedBasicPatterns:(int)version matrix:(ZXByteMatrix *)matrix error:(NSError**)error {
   if (![self embedPositionDetectionPatternsAndSeparators:matrix]) {
-    if (error) *error = [[[NSError alloc] initWithDomain:ZXErrorDomain code:ZXNotFoundError userInfo:nil] autorelease];
+    if (error) *error = [[NSError alloc] initWithDomain:ZXErrorDomain code:ZXNotFoundError userInfo:nil];
     return NO;
   }
   if (![self embedDarkDotAtLeftBottomCorner:matrix]) {
-    if (error) *error = [[[NSError alloc] initWithDomain:ZXErrorDomain code:ZXNotFoundError userInfo:nil] autorelease];
+    if (error) *error = [[NSError alloc] initWithDomain:ZXErrorDomain code:ZXNotFoundError userInfo:nil];
     return NO;
   }
   if (![self maybeEmbedPositionAdjustmentPatterns:version matrix:matrix]) {
-    if (error) *error = [[[NSError alloc] initWithDomain:ZXErrorDomain code:ZXNotFoundError userInfo:nil] autorelease];
+    if (error) *error = [[NSError alloc] initWithDomain:ZXErrorDomain code:ZXNotFoundError userInfo:nil];
     return NO;
   }
   if (![self embedTimingPatterns:matrix]) {
-    if (error) *error = [[[NSError alloc] initWithDomain:ZXErrorDomain code:ZXNotFoundError userInfo:nil] autorelease];
+    if (error) *error = [[NSError alloc] initWithDomain:ZXErrorDomain code:ZXNotFoundError userInfo:nil];
     return NO;
   }
   return YES;
 }
 
 + (BOOL)embedTypeInfo:(ZXErrorCorrectionLevel *)ecLevel maskPattern:(int)maskPattern matrix:(ZXByteMatrix *)matrix error:(NSError **)error {
-  ZXBitArray * typeInfoBits = [[[ZXBitArray alloc] init] autorelease];
+  ZXBitArray * typeInfoBits = [[ZXBitArray alloc] init];
   if (![self makeTypeInfoBits:ecLevel maskPattern:maskPattern bits:typeInfoBits error:error]) {
     return NO;
   }
@@ -201,7 +201,7 @@ int const TYPE_INFO_MASK_PATTERN = 0x5412;
   if (version < 7) {
     return YES;
   }
-  ZXBitArray * versionInfoBits = [[[ZXBitArray alloc] init] autorelease];
+  ZXBitArray * versionInfoBits = [[ZXBitArray alloc] init];
   if (![self makeVersionInfoBits:version bits:versionInfoBits error:error]) {
     return NO;
   }
@@ -262,7 +262,7 @@ int const TYPE_INFO_MASK_PATTERN = 0x5412;
     NSDictionary* userInfo = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Not all bits consumed: %d/%d", bitIndex, [dataBits size]]
                                                          forKey:NSLocalizedDescriptionKey];
 
-    if (error) *error = [[[NSError alloc] initWithDomain:ZXErrorDomain code:ZXNotFoundError userInfo:userInfo] autorelease];
+    if (error) *error = [[NSError alloc] initWithDomain:ZXErrorDomain code:ZXNotFoundError userInfo:userInfo];
     return NO;
   }
   return YES;
@@ -293,21 +293,21 @@ int const TYPE_INFO_MASK_PATTERN = 0x5412;
     NSDictionary* userInfo = [NSDictionary dictionaryWithObject:@"Invalid mask pattern"
                                                          forKey:NSLocalizedDescriptionKey];
 
-    if (error) *error = [[[NSError alloc] initWithDomain:ZXErrorDomain code:ZXNotFoundError userInfo:userInfo] autorelease];
+    if (error) *error = [[NSError alloc] initWithDomain:ZXErrorDomain code:ZXNotFoundError userInfo:userInfo];
     return NO;
   }
   int typeInfo = ([ecLevel bits] << 3) | maskPattern;
   [bits appendBits:typeInfo numBits:5];
   int bchCode = [self calculateBCHCode:typeInfo poly:TYPE_INFO_POLY];
   [bits appendBits:bchCode numBits:10];
-  ZXBitArray * maskBits = [[[ZXBitArray alloc] init] autorelease];
+  ZXBitArray * maskBits = [[ZXBitArray alloc] init];
   [maskBits appendBits:TYPE_INFO_MASK_PATTERN numBits:15];
   [bits xor:maskBits];
   if ([bits size] != 15) {
     NSDictionary* userInfo = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"should not happen but we got: %d", [bits size]]
                                                          forKey:NSLocalizedDescriptionKey];
 
-    if (error) *error = [[[NSError alloc] initWithDomain:ZXErrorDomain code:ZXNotFoundError userInfo:userInfo] autorelease];
+    if (error) *error = [[NSError alloc] initWithDomain:ZXErrorDomain code:ZXNotFoundError userInfo:userInfo];
     return NO;
   }
   return YES;
@@ -321,7 +321,7 @@ int const TYPE_INFO_MASK_PATTERN = 0x5412;
     NSDictionary* userInfo = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"should not happen but we got: %d", [bits size]]
                                                          forKey:NSLocalizedDescriptionKey];
 
-    if (error) *error = [[[NSError alloc] initWithDomain:ZXErrorDomain code:ZXNotFoundError userInfo:userInfo] autorelease];
+    if (error) *error = [[NSError alloc] initWithDomain:ZXErrorDomain code:ZXNotFoundError userInfo:userInfo];
     return NO;
   }
   return YES;

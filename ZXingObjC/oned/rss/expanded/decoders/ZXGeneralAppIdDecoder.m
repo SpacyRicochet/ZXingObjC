@@ -25,9 +25,9 @@
 
 @interface ZXGeneralAppIdDecoder ()
 
-@property (nonatomic, retain) ZXBitArray * information;
-@property (nonatomic, retain) ZXCurrentParsingState * current;
-@property (nonatomic, retain) NSMutableString * buffer;
+@property (nonatomic, strong) ZXBitArray * information;
+@property (nonatomic, strong) ZXCurrentParsingState * current;
+@property (nonatomic, strong) NSMutableString * buffer;
 
 - (ZXDecodedChar *)decodeAlphanumeric:(int)pos;
 - (ZXDecodedChar *)decodeIsoIec646:(int)pos;
@@ -251,9 +251,9 @@
     self.current.position = alpha.theNewPosition;
 
     if (alpha.fnc1) {
-      ZXDecodedInformation * _information = [[[ZXDecodedInformation alloc] initWithNewPosition:self.current.position
-                                                                                     newString:self.buffer] autorelease];
-      return [[[ZXBlockParsedResult alloc] initWithInformation:_information finished:YES] autorelease];
+      ZXDecodedInformation * _information = [[ZXDecodedInformation alloc] initWithNewPosition:self.current.position
+                                                                                     newString:self.buffer];
+      return [[ZXBlockParsedResult alloc] initWithInformation:_information finished:YES];
     }
 
     [self.buffer appendFormat:@"%C", alpha.value];

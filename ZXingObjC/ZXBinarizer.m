@@ -26,7 +26,7 @@
 
 @interface ZXBinarizer ()
 
-@property (nonatomic, retain) ZXLuminanceSource* luminanceSource;
+@property (nonatomic, strong) ZXLuminanceSource* luminanceSource;
 
 @end
 
@@ -128,7 +128,7 @@
     }
   }
 
-  CGImageRef binary = (__bridge CGImageRef)CFBridgingRelease(CGBitmapContextCreateImage(context));
+  CGImageRef binary = CGBitmapContextCreateImage(context);
 
   CGContextRelease(context);
 

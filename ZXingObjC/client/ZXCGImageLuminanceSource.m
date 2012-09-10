@@ -43,18 +43,10 @@
 @implementation ZXCGImageLuminanceSource
 
 + (CGImageRef)createImageFromBuffer:(CVImageBufferRef)buffer {
-  return [self createImageFromBuffer:buffer
-                                left:0
-                                 top:0
-                               width:CVPixelBufferGetWidth(buffer)
-                              height:CVPixelBufferGetHeight(buffer)];
+  return [self createImageFromBuffer:buffer left:0 top:0 width:CVPixelBufferGetWidth(buffer) height:CVPixelBufferGetHeight(buffer)];
 }
 
-+ (CGImageRef)createImageFromBuffer:(CVImageBufferRef)buffer
-                                      left:(size_t)left
-                                       top:(size_t)top
-                                     width:(size_t)width
-                                    height:(size_t)height {
++ (CGImageRef)createImageFromBuffer:(CVImageBufferRef)buffer  left:(size_t)left top:(size_t)top width:(size_t)width height:(size_t)height {
   int bytesPerRow = CVPixelBufferGetBytesPerRow(buffer); 
   int dataWidth = CVPixelBufferGetWidth(buffer); 
   int dataHeight = CVPixelBufferGetHeight(buffer); 
@@ -95,7 +87,7 @@
                                                   kCGImageAlphaNoneSkipFirst);
   CGColorSpaceRelease(colorSpace);
 
-  CGImageRef result = (__bridge CGImageRef)(CFBridgingRelease(CGBitmapContextCreateImage(newContext)));
+  CGImageRef result = CGBitmapContextCreateImage(newContext);
 
   CGContextRelease(newContext);
 
@@ -305,7 +297,7 @@
   CFRelease(context);
 
   int _width = self.width;
-  return [[[ZXCGImageLuminanceSource alloc] initWithCGImage:rotatedImage left:top top:sourceWidth - (left + _width) width:self.height height:_width] autorelease];
+  return [[ZXCGImageLuminanceSource alloc] initWithCGImage:rotatedImage left:top top:sourceWidth - (left + _width) width:self.height height:_width];
 }
 
 @end

@@ -27,7 +27,7 @@
 
 @interface ZXDataMatrixDecoder ()
 
-@property (nonatomic, retain) ZXReedSolomonDecoder * rsDecoder;
+@property (nonatomic, strong) ZXReedSolomonDecoder * rsDecoder;
 
 - (BOOL)correctErrors:(NSMutableArray *)codewordBytes numDataCodewords:(int)numDataCodewords error:(NSError**)error;
 
@@ -69,7 +69,7 @@
  * to mean a black module.
  */
 - (ZXDecoderResult *)decodeMatrix:(ZXBitMatrix *)bits error:(NSError **)error {
-  ZXDataMatrixBitMatrixParser * parser = [[[ZXDataMatrixBitMatrixParser alloc] initWithBitMatrix:bits error:error] autorelease];
+  ZXDataMatrixBitMatrixParser * parser = [[ZXDataMatrixBitMatrixParser alloc] initWithBitMatrix:bits error:error];
   if (!parser) {
     return nil;
   }

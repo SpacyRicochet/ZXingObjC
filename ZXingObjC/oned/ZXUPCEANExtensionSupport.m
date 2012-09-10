@@ -57,8 +57,8 @@ const int CHECK_DIGIT_ENCODINGS[10] = {
                                                rawBytes:NULL
                                                  length:0
                                            resultPoints:[NSArray arrayWithObjects:
-                                                         [[[ZXResultPoint alloc] initWithX:(extensionStartRange.location + NSMaxRange(extensionStartRange)) / 2.0f y:(float)rowNumber] autorelease],
-                                                         [[[ZXResultPoint alloc] initWithX:(float)end y:(float)rowNumber] autorelease], nil]
+                                                         [[ZXResultPoint alloc] initWithX:(extensionStartRange.location + NSMaxRange(extensionStartRange)) / 2.0f y:(float)rowNumber],
+                                                         [[ZXResultPoint alloc] initWithX:(float)end y:(float)rowNumber], nil]
                                                  format:kBarcodeFormatUPCEANExtension];
   if (extensionData != nil) {
     [extensionResult putAllMetadata:extensionData];
