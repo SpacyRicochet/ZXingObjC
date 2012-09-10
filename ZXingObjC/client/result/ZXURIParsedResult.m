@@ -47,14 +47,7 @@ static NSRegularExpression* USER_IN_HOST = nil;
 }
 
 + (id)uriParsedResultWithUri:(NSString *)uri title:(NSString *)title {
-  return [[[self alloc] initWithUri:uri title:title] autorelease];
-}
-
-- (void)dealloc {
-  [uri release];
-  [title release];
-
-  [super dealloc];
+  return [[self alloc] initWithUri:uri title:title];
 }
 
 

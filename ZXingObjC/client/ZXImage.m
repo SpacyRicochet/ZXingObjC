@@ -51,7 +51,7 @@
 
 - (ZXImage*)initWithURL:(NSURL const*)url {
   if (self = [super init]) {
-    CGDataProviderRef provider = CGDataProviderCreateWithURL((CFURLRef)url);
+    CGDataProviderRef provider = CGDataProviderCreateWithURL((__bridge CFURLRef)url);
 
     if (provider) {
       CGImageSourceRef source = CGImageSourceCreateWithDataProvider(provider, 0);
@@ -102,8 +102,7 @@
   CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
   CGContextRef c = CGBitmapContextCreate(bytes, width, height, 8, 4 * width, colorSpace, kCGImageAlphaPremultipliedLast);
   CFRelease(colorSpace);
-  CGImageRef image = CGBitmapContextCreateImage(c);
-  [NSMakeCollectable(image) autorelease];
+  CGImageRef image = (__bridge CGImageRef)CFBridgingRelease(CGBitmapContextCreateImage(c));
   CFRelease(c);
   free(bytes);
 

@@ -95,8 +95,7 @@
                                                   kCGImageAlphaNoneSkipFirst);
   CGColorSpaceRelease(colorSpace);
 
-  CGImageRef result = CGBitmapContextCreateImage(newContext);
-  [NSMakeCollectable(result) autorelease];
+  CGImageRef result = (__bridge CGImageRef)(CFBridgingRelease(CGBitmapContextCreateImage(newContext)));
 
   CGContextRelease(newContext);
 
@@ -172,8 +171,6 @@
   if (data) {
     free(data);
   }
-
-  [super dealloc];
 }
 
 - (unsigned char *)row:(int)y row:(unsigned char *)row {
@@ -303,8 +300,7 @@
                                          imgRect.size.height),
                      self.image);
 
-  CGImageRef rotatedImage = CGBitmapContextCreateImage(context);
-  [NSMakeCollectable(rotatedImage) autorelease];
+  CGImageRef rotatedImage = (__bridge CGImageRef)CFBridgingRelease(CGBitmapContextCreateImage(context));
 
   CFRelease(context);
 

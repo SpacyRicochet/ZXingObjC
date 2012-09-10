@@ -62,13 +62,6 @@ const int INSIDE_ODD_WIDEST[4] = {2,4,6,8};
   return self;
 }
 
-- (void)dealloc {
-  [possibleLeftPairs release];
-  [possibleRightPairs release];
-
-  [super dealloc];
-}
-
 - (ZXResult *)decodeRow:(int)rowNumber row:(ZXBitArray *)row hints:(ZXDecodeHints *)hints error:(NSError **)error {
   ZXPair * leftPair = [self decodePair:row right:NO rowNumber:rowNumber hints:hints];
   [self addOrTally:self.possibleLeftPairs pair:leftPair];

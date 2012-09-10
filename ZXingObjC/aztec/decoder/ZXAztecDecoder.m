@@ -117,7 +117,7 @@ static NSString* DIGIT_TABLE[] = {
   if (!result) {
     return nil;
   }
-  return [[[ZXDecoderResult alloc] initWithRawBytes:NULL length:0 text:result byteSegments:nil ecLevel:nil] autorelease];
+  return [[ZXDecoderResult alloc] initWithRawBytes:NULL length:0 text:result byteSegments:nil ecLevel:nil];
 }
 
 
@@ -415,7 +415,7 @@ static NSString* DIGIT_TABLE[] = {
  */
 - (ZXBitMatrix *)removeDashedLines:(ZXBitMatrix *)matrix {
   int nbDashed = 1 + 2 * ((matrix.width - 1) / 2 / 16);
-  ZXBitMatrix * newMatrix = [[[ZXBitMatrix alloc] initWithWidth:matrix.width - nbDashed height:matrix.height - nbDashed] autorelease];
+  ZXBitMatrix * newMatrix = [[ZXBitMatrix alloc] initWithWidth:matrix.width - nbDashed height:matrix.height - nbDashed];
   int nx = 0;
 
   for (int x = 0; x < matrix.width; x++) {

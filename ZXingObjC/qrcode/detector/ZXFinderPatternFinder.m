@@ -427,7 +427,7 @@ NSInteger furthestFromAverageCompare(id center1, id center2, void *context);
  * Orders by ZXFinderPattern count, descending.
  */
 NSInteger centerCompare(id center1, id center2, void *context) {
-  float average = [(NSNumber *)context floatValue];
+  float average = [(__bridge NSNumber *)context floatValue];
 
   if ([((ZXQRCodeFinderPattern *)center2) count] == [((ZXQRCodeFinderPattern *)center1) count]) {
     float dA = fabsf([((ZXQRCodeFinderPattern *)center2) estimatedModuleSize] - average);
@@ -442,7 +442,7 @@ NSInteger centerCompare(id center1, id center2, void *context) {
  * Orders by furthest from average
  */
 NSInteger furthestFromAverageCompare(id center1, id center2, void *context) {
-  float average = [(NSNumber *)context floatValue];
+  float average = [(__bridge NSNumber *)context floatValue];
 
   float dA = fabsf([((ZXQRCodeFinderPattern *)center2) estimatedModuleSize] - average);
   float dB = fabsf([((ZXQRCodeFinderPattern *)center1) estimatedModuleSize] - average);

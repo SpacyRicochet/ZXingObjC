@@ -53,21 +53,12 @@
 @synthesize capture;
 @synthesize decodedLabel;
 
-#pragma mark - Creation/Deletion Methods
-
-- (void)dealloc {
-  [capture release];
-  [decodedLabel release];
-
-  [super dealloc];
-}
-
 #pragma mark - View Controller Methods
 
 - (void)viewDidLoad {
   [super viewDidLoad];
 
-  self.capture = [[[ZXCapture alloc] init] autorelease];
+  self.capture = [[ZXCapture alloc] init];
   self.capture.delegate = self;
   self.capture.rotation = 90.0f;
 

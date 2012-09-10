@@ -83,29 +83,7 @@
                       instantMessenger:(NSString *)instantMessenger note:(NSString *)note addresses:(NSArray *)addresses
                           addressTypes:(NSArray *)addressTypes org:(NSString *)org birthday:(NSString *)birthday
                                  title:(NSString *)title url:(NSString *)url {
-  return [[[self alloc] initWithNames:names pronunciation:pronunciation phoneNumbers:phoneNumbers
-                           phoneTypes:phoneTypes emails:emails emailTypes:emailTypes
-                     instantMessenger:instantMessenger note:note addresses:addresses
-                         addressTypes:addressTypes org:org birthday:birthday title:title url:url] autorelease];
-}
-
-- (void)dealloc {
-  [names release];
-  [pronunciation release];
-  [phoneNumbers release];
-  [phoneTypes release];
-  [emails release];
-  [emailTypes release];
-  [instantMessenger release];
-  [note release];
-  [addresses release];
-  [addressTypes release];
-  [org release];
-  [birthday release];
-  [title release];
-  [url release];
-
-  [super dealloc];
+  return [[self alloc] initWithNames:names pronunciation:pronunciation phoneNumbers:phoneNumbers phoneTypes:phoneTypes emails:emails emailTypes:emailTypes instantMessenger:instantMessenger note:note addresses:addresses addressTypes:addressTypes org:org birthday:birthday title:title url:url];
 }
 
 - (NSString *)displayResult {

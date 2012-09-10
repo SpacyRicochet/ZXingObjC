@@ -176,9 +176,7 @@ int const CODE39_ASTERISK_ENCODING = 0x094;
   return [ZXResult resultWithText:resultString
                          rawBytes:nil
                            length:0
-                     resultPoints:[NSArray arrayWithObjects:[[[ZXResultPoint alloc] initWithX:left y:(float)rowNumber] autorelease],
-                                   [[[ZXResultPoint alloc] initWithX:right y:(float)rowNumber] autorelease], nil]
-                           format:kBarcodeFormatCode39];
+                     resultPoints:[NSArray arrayWithObjects:[[ZXResultPoint alloc] initWithX:left y:(float)rowNumber], [[ZXResultPoint alloc] initWithX:right y:(float)rowNumber], nil] format:kBarcodeFormatCode39];
 }
 
 - (BOOL)findAsteriskPattern:(ZXBitArray *)row a:(int*)a b:(int*)b counters:(int*)counters countersLen:(int)countersLen {

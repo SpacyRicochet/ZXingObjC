@@ -241,10 +241,10 @@ static NSString* SEMICOLON = @";";
 + (void)maybeAppendFragment:(NSMutableData *)fragmentBuffer charset:(NSString *)charset result:(NSMutableString *)result {
   if ([fragmentBuffer length] > 0) {
     NSString * fragment;
-    if (charset == nil || CFStringConvertIANACharSetNameToEncoding((CFStringRef)charset) == kCFStringEncodingInvalidId) {
-      fragment = [[[NSString alloc] initWithData:fragmentBuffer encoding:NSUTF8StringEncoding] autorelease];
+    if (charset == nil || CFStringConvertIANACharSetNameToEncoding((__bridge CFStringRef)charset) == kCFStringEncodingInvalidId) {
+      fragment = [[NSString alloc] initWithData:fragmentBuffer encoding:NSUTF8StringEncoding];
     } else {
-      fragment = [[[NSString alloc] initWithData:fragmentBuffer encoding:CFStringConvertEncodingToNSStringEncoding(CFStringConvertIANACharSetNameToEncoding((CFStringRef)charset))] autorelease];
+      fragment = [[NSString alloc] initWithData:fragmentBuffer encoding:CFStringConvertEncodingToNSStringEncoding(CFStringConvertIANACharSetNameToEncoding((__bridge CFStringRef)charset))];
     }
     [fragmentBuffer setLength:0];
     [result appendString:fragment];

@@ -103,8 +103,7 @@
                                            imgRect.size.height),
                        original);
 
-    CGImageRef rotatedImage = CGBitmapContextCreateImage(context);
-    CFMakeCollectable(rotatedImage);
+    CGImageRef rotatedImage = (__bridge CGImageRef)CFBridgingRelease(CGBitmapContextCreateImage(context));
 
     CFRelease(context);
 
@@ -183,7 +182,6 @@
 - (void)replaceInput {
   if (session && input) {
     [session removeInput:input];
-    [input release];
     input = nil;
   }
 
@@ -194,7 +192,6 @@
     input =
       [ZXCaptureDeviceInput deviceInputWithDevice:zxd
                                        ZXAV(error:nil)];
-    [input retain];
   }
   
   if (input) {
@@ -509,7 +506,7 @@ ZXAV(didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer)
     CGImageRef image = source.image;
     CGImageRetain(image);
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0), dispatch_get_main_queue(), ^{
-        luminance.contents = (id)image;
+        luminance.contents = (__bridge id)image;
         CGImageRelease(image);
       });
   }
@@ -517,13 +514,12 @@ ZXAV(didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer)
   if (binary || delegate) {
 
     // compiler issue?
-    ZXHybridBinarizer* binarizer = [ZXHybridBinarizer alloc];
-    [[binarizer initWithSource:source] autorelease];
+    ZXHybridBinarizer* binarizer = [[ZXHybridBinarizer alloc] initWithSource:source];
 
     if (binary) {
       CGImageRef image = binarizer.createImage;
       dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0), dispatch_get_main_queue(), ^{
-          binary.contents = (id)image;
+          binary.contents = (__bridge id)image;
           CGImageRelease(image);
         });
     }

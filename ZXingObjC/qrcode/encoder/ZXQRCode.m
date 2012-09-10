@@ -51,14 +51,6 @@ int const NUM_MASK_PATTERNS = 8;
   return self;
 }
 
-- (void)dealloc {
-  [mode release];
-  [ecLevel release];
-  [matrix release];
-
-  [super dealloc];
-}
-
 - (int)atX:(int)x y:(int)y {
   int value = [self.matrix getX:x y:y];
   if (!(value == 0 || value == 1)) {

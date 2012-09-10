@@ -66,7 +66,7 @@ ZX(<CAAction ZXAVC(AVCaptureVideoDataOutputSampleBufferDelegate)>) {
     ZXCaptureVideoPreviewLayer* layer;
     ZXCaptureVideoOutput* output;
     ZXCaptureDeviceInput* input;
-    id<ZXCaptureDelegate> delegate;
+    __weak id<ZXCaptureDelegate> delegate;
     )
     
   int order_in_skip;
@@ -87,7 +87,7 @@ ZX(<CAAction ZXAVC(AVCaptureVideoDataOutputSampleBufferDelegate)>) {
   CGAffineTransform transform;
 }
 
-@property (nonatomic, assign) id<ZXCaptureDelegate> delegate;
+@property (nonatomic, weak) id<ZXCaptureDelegate> delegate;
 @property (nonatomic, copy) NSString* captureToFilename;
 @property (nonatomic) CGAffineTransform transform;
 @property (nonatomic, readonly) ZXCaptureVideoOutput* output;

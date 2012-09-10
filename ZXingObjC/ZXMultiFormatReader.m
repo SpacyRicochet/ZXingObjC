@@ -48,7 +48,7 @@
 }
 
 + (id)reader {
-  return [[[ZXMultiFormatReader alloc] init] autorelease];
+  return [[ZXMultiFormatReader alloc] init];
 }
 
 /**

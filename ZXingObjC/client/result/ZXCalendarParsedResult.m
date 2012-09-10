@@ -63,20 +63,8 @@
   return self;
 }
 
-+ (id)calendarParsedResultWithSummary:(NSString *)summary start:(NSString *)start end:(NSString *)end location:(NSString *)location
-                             attendee:(NSString *)attendee description:(NSString *)description latitude:(double)latitude longitude:(double)longitude {
-  return [[[self alloc] initWithSummary:summary start:start end:end location:location attendee:attendee
-                            description:description latitude:latitude longitude:longitude] autorelease];
-}
-
-- (void)dealloc {
-  [summary release];
-  [start release];
-  [end release];
-  [location release];
-  [attendee release];
-  [description release];
-  [super dealloc];
++ (id)calendarParsedResultWithSummary:(NSString *)summary start:(NSString *)start end:(NSString *)end location:(NSString *)location attendee:(NSString *)attendee description:(NSString *)description latitude:(double)latitude longitude:(double)longitude {
+  return [[self alloc] initWithSummary:summary start:start end:end location:location attendee:attendee description:description latitude:latitude longitude:longitude];
 }
 
 - (NSString *)displayResult {

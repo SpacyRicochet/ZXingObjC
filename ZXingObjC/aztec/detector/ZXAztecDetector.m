@@ -46,7 +46,7 @@
 }
 
 - (ZXResultPoint *)toResultPoint {
-  return [[[ZXResultPoint alloc] initWithX:x y:y] autorelease];
+  return [[ZXResultPoint alloc] initWithX:x y:y];
 }
 
 @end
@@ -96,12 +96,6 @@
     self.image = anImage;
   }
   return self;
-}
-
-- (void) dealloc {
-  [image release];
-
-  [super dealloc];
 }
 
 /**
@@ -270,10 +264,10 @@
   }
 
   return [NSArray arrayWithObjects:
-          [[[ZXResultPoint alloc] initWithX:targetax y:targetay] autorelease],
-          [[[ZXResultPoint alloc] initWithX:targetbx y:targetby] autorelease],
-          [[[ZXResultPoint alloc] initWithX:targetcx y:targetcy] autorelease],
-          [[[ZXResultPoint alloc] initWithX:targetdx y:targetdy] autorelease], nil];
+          [[ZXResultPoint alloc] initWithX:targetax y:targetay],
+          [[ZXResultPoint alloc] initWithX:targetbx y:targetby],
+          [[ZXResultPoint alloc] initWithX:targetcx y:targetcy],
+          [[ZXResultPoint alloc] initWithX:targetdx y:targetdy], nil];
 }
 
 
