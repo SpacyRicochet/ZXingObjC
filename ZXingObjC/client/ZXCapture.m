@@ -615,10 +615,7 @@ ZXAV(didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer)
 @synthesize rotation;
 
 - (id)init {
-  if ((self = [super init])) {
-    [self release];
-  }
-  return 0;
+    return nil;
 }
 
 - (CALayer*)layer {
@@ -636,8 +633,7 @@ ZXAV(didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer)
 - (void)setLuminance:(BOOL)on {}
 - (void)setBinary:(BOOL)on {}
 
-- (void)hard_stop {
-}
+- (void)hard_stop {}
 
 - (BOOL)hasFront {
   return YES;

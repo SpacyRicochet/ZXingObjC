@@ -36,8 +36,6 @@
 @protocol ZXCaptureDelegate <NSObject>
 
 - (void)captureResult:(ZXCapture*)capture result:(ZXResult*)result;
-- (void)captureSize:(ZXCapture*)capture
-              width:(NSNumber*)width
-             height:(NSNumber*)height;
+- (void)captureSize:(ZXCapture*)capture width:(NSNumber*)width height:(NSNumber*)height;
 
 @end
